@@ -79,18 +79,20 @@ Have fun!
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Obtain your ROOT file}
-The standard way to get ROOT out put is to add in your macro:
+The standard way to get ROOT output is to add in your GATE macro:
 \\
 \verb|/gate/output/root/enable | \\
 \verb|/gate/output/root/setFileName        YourOutputFile|
 \\
-This command creates a file \verb| YourOutputFile.root|, which contains usually several ROOT TTree objects, like Hits, Singles, Coincidences. TTree is .... 
+This command creates a file \verb| YourOutputFile.root|, which contains usually several ROOT TTree objects, like Hits, Singles, Coincidences. TTree  is a ROOT object consisting of a list of independent branches (TBranch). Each of them corresponds to saved variables from obtained in GATE simulation, like energies, hit positions, process IDs etc. for each generated event.  
 
 \
 
 One can choose the standard TTree with commands:\\
 \verb|/gate/output/root/setRootHitFlag         1| \\
-\verb|/gate/output/root/setRootSinglesFlag      1|
+\verb|/gate/output/root/setRootSinglesFlag      1| \\
+In this case the .root file will contain default trees of Singles and Hits.\\
+ 
 
 It is possible to have some additional TTrees, for example, with an energy selection. To do so one should add in digitizer something like: \\
 \verb|/gate/digitizer/name peak171| \\
@@ -106,16 +108,16 @@ This will add to the .root file a TTree with a name peak171 which will contain S
 \section{Painless ROOT file opening}
 The simplest way to open your ROOT file is to type in terminal:\\
 \verb|> root -l YourOutputFile.root |\\
-option -l will remove the ROOT start image. 
+Option \verb|-l| removes the ROOT start image. 
 
 There are two ways to check the content of your file:
 \begin{enumerate}
-\item use a \verb|TBrowser|, which is not very powerful and gives an access to visualized structure of your ROOT file but very limited if for selection application or two histograms superposition
+\item use a \verb|TBrowser|, which is not very powerful and gives an access to visualized structure of your ROOT file but very limited for selection application or histogram superposition
 \item I \textbf{strongly recommend} use command:\\
 
 root[0]\verb| .ls|\\
 
-This command will show you the list of all ROOT objects that you have in your file or that you created in the current ROOT session (see Figure~\ref{fig:.ls}). The names of TTree's are often repeated twice, this should not bother you. 
+This command will show you the list of all ROOT objects that you have in your file or that you created in the current ROOT session (see Figure~\ref{fig:.ls}). Sometimes the TTrees are repeated twice, this should not bother you. 
 \end{enumerate}
 \begin{figure}[h]
 \centering
@@ -141,7 +143,7 @@ The results of this command is shown in Figure~\ref{fig:Show}
 
 
 \section{Smart plotting of your histograms (without TBrowser and python scripts)}
-To plot a histogram one should use option \verb|TTree -> Draw("name_of_the_branch")|. For example, if you want to plot 1D, 2D or 3D histograms of energy you could do    
+To plot a histogram one should use option \verb|TTree -> Draw("name_of_the_branch")|. For example, if you want to plot 1D, 2D or 3D histograms of energy and positions you could do    
 
 root[1] \verb| Hits->Draw("edep")| for 1D (Figure~\ref{fig:1Dhist}, top) \\
 
@@ -153,7 +155,7 @@ root[3] \verb| Hits->Draw("posX:posY:posZ")| for 3D (Figure~\ref{fig:1Dhist}, bo
 \includegraphics[scale=0.37]{figs/1Dhist.pdf} \\
 \includegraphics[scale=0.37]{figs/2Dhist.pdf} \\
 \includegraphics[scale=0.37]{figs/3Dhist.pdf}
-\caption{Output of Draw command}
+\caption{Output of Draw commands}
 \label{fig:1Dhist}
 \end{figure}
 \clearpage
@@ -265,8 +267,8 @@ root[8] \verb| Hits->Draw("edep","trackID==1 && posX>0.5") |
 root[9] \verb| Hits->Draw("edep","trackID==1| $||$ \verb| posX>0.5") |\\
 
 \subsection{How to rebin a histogram}
-The default binning of 1D histogram in ROOT is 100 bins per X axis. It is possible to change and the simplest way is the following:\\
-One has to defined a histogram with needed parameters:\\
+The default binning of a histogram in ROOT is 100 bins per axis (at least for 1D and 2D histograms). It is possible to change it and the simplest way is the following:\\
+One has to define a histogram with needed parameters:\\
 
 root[1] \verb|TH1F* h = new TH1F("h","h",50,0,0.3) |\\
 
@@ -282,6 +284,7 @@ root[2] \verb| Hits->Draw("edep>>h","","") |
 \caption{Drawing of rebinned 1D histogram}
 \label{fig:rebin}
 \end{figure}
+
 
 \clearpage
 \subsection{Superposition of two distributions}
@@ -323,7 +326,7 @@ or by an equivalent command directly in ROOT:\\
 
 root[0] \verb|  TFile *_file0 = TFile::Open("YourOutputFile.root");|\\
 
-and drawing a histogram:\\
+and draw a histogram:\\
 
 root[2] \verb| Singles->Draw("energy") | \\
 
@@ -337,7 +340,7 @@ root[4] \verb| Singles->Draw("energy","","esame") |\\
 
 
 \subsection{Simple fitting}
-It is possible to do a simple fit of your distribution. For this after drawing your histogram you need to go to the canvas window and select \verb| Tools --> Fit Panel |. You will have new window with a Fit Panel as presented in Figure~\ref{fig:FitPanel}. There you can choose your fitting function, fitting method, fitting range etc. In the following example, the fit is done by Gaussian function in the range [0.13;0.21]~MeV. The parameters of the fit is printed in the terminal window where you started ROOT and looks like following:
+It is possible to do a simple fit of your distribution. For this after drawing your histogram you need to go to the canvas window and select \verb| Tools --> Fit Panel |. You will have new window with a Fit Panel as presented in Figure~\ref{fig:FitPanel}. There you can choose your fitting function, fitting method, fitting range etc. In the following example, the fit is done by Gaussian function in the range [0.13;0.21]~MeV. The parameters of the fit are printed in the terminal window where you started ROOT and look like following:
 \verb| FCN=1259.74 FROM MIGRAD    STATUS=CONVERGED      75 CALLS      76 TOTAL|\\
 \verb|                EDM=1.82902e-12    STRATEGY= 1      ERROR MATRIX ACCURATE| \\
 \verb|   EXT PARAMETER                                   STEP         FIRST|   \\
@@ -356,10 +359,9 @@ More about the fitting options can be found on ROOT web page.
 \end{figure}
 
 
-\section{Scan option}
+\section{Scan option for a printout}
 Sometimes it is useful to printout the content of a branch, for example, in case when you want to study some anomalies. For this purpose one can use \verb|Scan()| function. It is similar to \verb|Draw()|, i.e. you also can apply cuts and plot several variables. For example, if one does: \\
 root[4] \verb| Hits->Scan("edep:posX","time<0.1&&posY>0") |\\
-
 the output will be something like this:\\
 \verb|************************************|\\
 \verb|*    Row   *      edep *      posX *|\\
@@ -371,23 +373,7 @@ the output will be something like this:\\
 \verb|*       15 * 0.1710000 * -91.10610 *|\\
 \verb|*       18 * 0.2199750 * 58.401462 *|\\
 \verb|*       21 * 0.2450000 * -181.6459 *|\\
-\verb|*       24 * 0.0803248 * 176.01010 *|\\
-\verb|*       27 * 0.1520019 * -38.77223 *|\\
-\verb|*       29 * 0.2450000 * 34.775840 *|\\
-\verb|*       30 * 0.0811032 * -176.0955 *|\\
-\verb|*       33 * 0.1103092 * -69.64908 *|\\
-\verb|*       34 * 0.0957561 * -68.88422 *|\\
-\verb|*       38 * 0.2450000 * 21.076614 *|\\
-\verb|*       42 * 0.1710000 * -178.0622 *|\\
-\verb|*       43 * 0.1710000 * -1.295397 *|\\
-\verb|*       44 * 0.1387058 * 178.04272 *|\\
-\verb|*       45 * 0.0322941 * 178.14222 *|\\
-\verb|*       48 * 0.2450000 * -177.6772 *|\\
-\verb|*       54 * 0.2450000 * -105.5232 *|\\
-\verb|*       55 * 0.0675205 * -176.8821 *|\\
-\verb|*       56 * 0.0562481 * 7.8245472 *|\\
-\verb|*       57 * 0.1557220 * 7.5984726 *|\\
-\verb|*       58 * 0.0330297 * 7.5733656 *|\\
+\verb|*                ...                |\\
 \verb|*       60 * 0.1710000 * -47.08741 *|\\
 \verb|Type <CR> to continue or q to quit ==>|\\
 There are only first 25 lines in the output, one can press either "Enter" to continue or "q" to exit.
@@ -403,9 +389,9 @@ The \verb|my_script.C| should contain something like this: \\
  \verb|  Singles->Draw("energy");|\\
  \verb|  Singles->Draw("energy","time<0.3","esame");|\\
  \verb|}|,\\
-where you open file at the beginning and after you can copy you plotting commands.
+where you open file at the beginning and after you can copy your plotting commands.
 
-\section{Example of script making beautiful plots}
+\section{Example of a script making beautiful plots}
 I hear all the time a lot of complains that the ROOT plots are not beautiful.  Thus, in this section I propose you a template to start for your plots. To run the script one should do:\\
  \verb|> root -l my_script.C |\\
 
@@ -500,7 +486,6 @@ The output result is shown in Figure~\ref{fig:energy}.
 \end{figure}
 
 
-\clearpage
 \section{Adding a new variable to your TTree*}
 In this section I will just add a link to the script that indicates how to add a new variable. It is a script that adds a shift on energy which is different for each of four detection heads. 
 

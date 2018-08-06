@@ -1,0 +1,16 @@
+\BOOKMARK [1][-]{section.1}{Obtain your ROOT file}{}% 1
+\BOOKMARK [1][-]{section.2}{Painless ROOT file opening}{}% 2
+\BOOKMARK [1][-]{section.3}{Smart plotting of your histograms \(without TBrowser and python scripts\)}{}% 3
+\BOOKMARK [2][-]{subsection.3.1}{Colors, markers, lines}{section.3}% 4
+\BOOKMARK [3][-]{subsubsection.3.1.1}{Color}{subsection.3.1}% 5
+\BOOKMARK [3][-]{subsubsection.3.1.2}{Size}{subsection.3.1}% 6
+\BOOKMARK [3][-]{subsubsection.3.1.3}{Style}{subsection.3.1}% 7
+\BOOKMARK [2][-]{subsection.3.2}{How to apply a simple selection}{section.3}% 8
+\BOOKMARK [2][-]{subsection.3.3}{How to rebin a histogram}{section.3}% 9
+\BOOKMARK [2][-]{subsection.3.4}{Superposition of two distributions}{section.3}% 10
+\BOOKMARK [2][-]{subsection.3.5}{Superposition of two distributions from different ROOT files}{section.3}% 11
+\BOOKMARK [2][-]{subsection.3.6}{Simple fitting}{section.3}% 12
+\BOOKMARK [1][-]{section.4}{Scan option}{}% 13
+\BOOKMARK [1][-]{section.5}{Simplest script to draw with ROOT}{}% 14
+\BOOKMARK [1][-]{section.6}{Example of script making beautiful plots}{}% 15
+\BOOKMARK [1][-]{section.7}{Adding a new variable to your TTree*}{}% 16

@@ -1,0 +1,103 @@
+% THis file contains all the default packages and modifications for
+% LHCb formatting
+
+%% %%%%%%%%%%%%%%%%%%
+%%  Page formatting
+%% %%%%%%%%%%%%%%%%%%
+\usepackage[inner=2.9cm,outer=2.6cm,bottom=2.6cm]{geometry}
+
+\raggedbottom
+% To avoid Latex to be too fussy with line breaking ...
+\sloppy
+
+%%% Header
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[RO,LE]{}
+\fancyhead[LO]{\itshape \nouppercase\leftmark}
+\fancyhead[RE]{\itshape \nouppercase\rightmark}
+\setlength{\headheight}{15pt}
+
+
+%%At the beginning of chapter make half page free space
+%\usepackage{setspace}
+%\onehalfspacing
+
+%% %%%%%%%%%%%%%%%%%%%%%%%
+%% Packages to be used
+%% %%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{microtype}
+\usepackage{lineno}  % for line numbering during review
+\usepackage{xspace} % To avoid problems with missing or double spaces after
+\usepackage{ulem}
+%\usepackage{hepnames}
+
+%% Graphics
+\usepackage{graphicx}  % to include figures (can also use other packages)
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{rotating}
+\usepackage{subfigure}
+\usepackage{epstopdf}
+\graphicspath{{./figs/}} % Make Latex search fig subdir for figures
+
+%%Tables
+\usepackage{longtable} % only for template; not usually to be used in PAPERs
+\usepackage{multirow}
+
+
+%% Math
+\usepackage{amssymb,amsfonts,amsmath,mathtext}
+\usepackage{amsmath} % Adds a large collection of math symbols
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{upgreek} % Adds in support for greek letters in roman typeset
+\usepackage{breqn} %%two lines in formulas
+
+%%Diagamms
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing,decorations.pathmorphing,decorations.markings,trees,calc,patterns,decorations}
+
+%% fix to allow peaceful coexistence of line numbering and
+%% mathematical objects
+%% http://www.latex-community.org/forum/viewtopic.php?f=5&t=163
+%%
+\newcommand*\patchAmsMathEnvironmentForLineno[1]{%
+\expandafter\let\csname old#1\expandafter\endcsname\csname #1\endcsname
+\expandafter\let\csname oldend#1\expandafter\endcsname\csname
+end#1\endcsname
+ \renewenvironment{#1}%
+   {\linenomath\csname old#1\endcsname}%
+   {\csname oldend#1\endcsname\endlinenomath}%
+}
+\newcommand*\patchBothAmsMathEnvironmentsForLineno[1]{%
+  \patchAmsMathEnvironmentForLineno{#1}%
+  \patchAmsMathEnvironmentForLineno{#1*}%
+}
+\AtBeginDocument{%
+\patchBothAmsMathEnvironmentsForLineno{equation}%
+\patchBothAmsMathEnvironmentsForLineno{align}%
+\patchBothAmsMathEnvironmentsForLineno{flalign}%
+\patchBothAmsMathEnvironmentsForLineno{alignat}%
+\patchBothAmsMathEnvironmentsForLineno{gather}%
+\patchBothAmsMathEnvironmentsForLineno{multline}%
+}
+
+% Get hyperlinks to captions and in references.
+% These do not work with revtex. Use "hypertext" as class option instead.
+\usepackage{hyperref}    % Hyperlinks in references
+%\usepackage[all]{hypcap} % Internal hyperlinks to floats.
+\definecolor{darkblue}{rgb}{0,0,0.5}
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\definecolor{darkviolet}{rgb}{0.55,0.,0.55}
+\hypersetup{colorlinks=true, linkcolor=darkblue, citecolor=darkviolet, urlcolor=darkgray}
+%\usepackage[all]{hypcap} % Internal =hyperlinks to floats.
+
+\input{lhcb-symbols-def} % Add in the predefined LHCb symbols
+
+% Make this the last packages you include before the \begin{document}
+%%%\usepackage{citesort} % automatically sort citations
+\usepackage{bibentry} 
+\usepackage{cite} % Allows for ranges in citations
+\usepackage{mciteplus}

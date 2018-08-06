@@ -1,3 +1,4 @@
+//to run: root -l  AddShiftedEnergy.C
 void AddShiftedEnergy() {
 
   //Shifts for each of detection heads

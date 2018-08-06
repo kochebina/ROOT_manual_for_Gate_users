@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/TeX Live for SUSE Linux) (preloaded format=pdflatex 2018.2.28)  6 AUG 2018 18:08
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/TeX Live for SUSE Linux) (preloaded format=pdflatex 2018.2.28)  6 AUG 2018 18:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -958,15 +958,15 @@ Package pdftex.def Info: figs/energy.pdf used on input line 497.
 (pdftex.def)             Requested size: 341.47838pt x 245.7199pt.
 
 [21 <./figs/energy.pdf, page is rotated 90 degrees>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 519.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 520.
  [22
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 519.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 520.
 
 (./ROOT_manual_for_GATE_users.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 519.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 519.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 520.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 520.
 Package rerunfilecheck Info: File `ROOT_manual_for_GATE_users.out' has not chan
 ged.
 (rerunfilecheck)             Checksum: E4A5DA07CB531E628A3F643E8E83EC11;1162.
@@ -974,7 +974,7 @@ ged.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 519.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 520.
  ) 
 Here is how much of TeX's memory you used:
  8945 strings out of 494041
@@ -990,10 +990,10 @@ Here is how much of TeX's memory you used:
 fb></usr/share/texmf/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texm
 f/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf/fonts/type1/publi
 c/amsfonts/cm/cmtt12.pfb>
-Output written on ROOT_manual_for_GATE_users.pdf (23 pages, 6287664 bytes).
+Output written on ROOT_manual_for_GATE_users.pdf (23 pages, 6287751 bytes).
 PDF statistics:
- 728 PDF objects out of 1000 (max. 8388607)
- 414 compressed objects within 5 object streams
+ 729 PDF objects out of 1000 (max. 8388607)
+ 415 compressed objects within 5 object streams
  56 named destinations out of 1000 (max. 500000)
  224 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -21,7 +21,7 @@
 \hypersetup{colorlinks=true, linkcolor=darkblue, citecolor=darkviolet, urlcolor=darkgray}
 %\usepackage{array}
 \usepackage{booktabs}
-\usepackage[inner=2.9cm,outer=2.6cm,bottom=2.6cm]{geometry}
+\usepackage[inner=3cm,outer=2cm,top=2.5cm,bottom=2.5cm]{geometry}
 %%%%%%%%%%%
 % Margins % 
 %%%%%%%%%%%
@@ -38,7 +38,7 @@
 \newtheorem{theorem}{Theorem}
 \newenvironment{proof}{\noindent{\bf Proof:}}{$\hfill \Box$ \vspace{10pt}}  
 
-
+%\pagestyle{plain} 
 %\input{preamble}
 
 \usepackage{array}
@@ -60,8 +60,10 @@
 %\maketitle
 \tableofcontents
 \newpage
+\pagestyle{plain}
 \begin{abstract}
-The manual for GATE users who wants to become a friend with ROOT output files. This documents contains the simplest actions with a ROOT files. They are so simple that you cannot find it easily. In some sense it is the manual of "From what to begin" of ROOT using.  Please, don't hesitate to contact \textcolor{blue}{kochebina@gmail.com} if you have any questions and comments. And of course, I strongly invite you to visit and use the ROOT web site, \href{https://root.cern.ch/}{https://root.cern.ch/}. This manual is very brief introduction and may just help you only in your first steps. Anyway, I hope that this document will save you some time.
+This manual is for GATE users who want to become familiar with ROOT output files. This documents contains simple actions with ROOT files. Though, despite their apparent simplicity, they are very useful and sometimes not easy to figure out. In some sense it is the manual of "Getting started" with ROOT. Some of the used files and scripts you can find on my github, \href{https://github.com/kochebina/ROOT_manual_for_Gate_users/tree/master/Materials}{\textcolor{blue}{link is here}}. Please, do not hesitate to contact the author at \textcolor{blue}{kochebina@gmail.com} if you have any questions and comments. And of course, I strongly invite you to visit and use the ROOT web site, \href{https://root.cern.ch/}{\textcolor{blue}{https://root.cern.ch/}}. This manual is a brief introduction. Hopefully, it will help you in your first steps and save you some time.
+%\vspace*{-7cm}
 \begin{center}
 Have fun!
 \end{center}
@@ -69,7 +71,7 @@ Have fun!
 
 \vspace*{10cm}
 
-\textit{I'd like to thank Benoit VIAUD who thought me almost everything that you will find in this manual.}   
+\textit{The author would like to thank Benoit VIAUD who taught me almost everything that you will find in this manual.}   
 \end{abstract}
 
 
@@ -84,7 +86,7 @@ The standard way to get ROOT output is to add in your GATE macro:
 \verb|/gate/output/root/enable | \\
 \verb|/gate/output/root/setFileName        YourOutputFile|
 \\
-This command creates a file \verb| YourOutputFile.root|, which contains usually several ROOT TTree objects, like Hits, Singles, Coincidences. TTree  is a ROOT object consisting of a list of independent branches (TBranch). Each of them corresponds to saved variables from obtained in GATE simulation, like energies, hit positions, process IDs etc. for each generated event.  
+This command creates a file \verb|YourOutputFile.root|, which contains usually several ROOT TTree objects, like Hits, Singles, Coincidences. TTree  is a ROOT object consisting of a list of independent branches (TBranch). Each of them corresponds to saved variables from obtained in GATE simulation. It can be energies, hit positions, process IDs etc. for each generated event.  
 
 \
 
@@ -94,7 +96,7 @@ One can choose the standard TTree with commands:\\
 In this case the .root file will contain default trees of Singles and Hits.\\
  
 
-It is possible to have some additional TTrees, for example, with an energy selection. To do so one should add in digitizer something like: \\
+It is possible to add a TTree, for example, with an energy selection. To do so one should add in digitizer something like: \\
 \verb|/gate/digitizer/name peak171| \\
 \verb|/gate/digitizer/insert singleChain| \\
 \verb|/gate/digitizer/peak171/setInputName Singles| \\
@@ -102,7 +104,7 @@ It is possible to have some additional TTrees, for example, with an energy selec
 \verb|/gate/digitizer/peak171/thresholder/setThreshold 153.9 keV| \\
 \verb|/gate/digitizer/peak171/insert upholder| \\
 \verb|/gate/digitizer/peak171/upholder/setUphold 188.1 keV| \\
-This will add to the .root file a TTree with a name peak171 which will contain Singles events with energies [153.9,188.1]~keV.
+This will add to the .root file a TTree with a name peak171 which will contain Singles events with energies [153.9,188.1]~keV. The more details could be found on GATE wiki page.
  
 
 \section{Painless ROOT file opening}
@@ -112,12 +114,12 @@ Option \verb|-l| removes the ROOT start image.
 
 There are two ways to check the content of your file:
 \begin{enumerate}
-\item use a \verb|TBrowser|, which is not very powerful and gives an access to visualized structure of your ROOT file but very limited for selection application or histogram superposition
-\item I \textbf{strongly recommend} use command:\\
+\item use a \verb|TBrowser|, which is not very powerful and gives an access to visualize the structure of your ROOT file but is very limited for selection application or histogram superposition
+\item \textbf{Recommend way} is to use command in terminal:\\
 
 root[0]\verb| .ls|\\
 
-This command will show you the list of all ROOT objects that you have in your file or that you created in the current ROOT session (see Figure~\ref{fig:.ls}). Sometimes the TTrees are repeated twice, this should not bother you. 
+This command will display the list of all ROOT objects contained in your file or that you created in the current ROOT session (see Figure~\ref{fig:.ls}). The first column corresponds to the type of objects (TFile, TTree, root histogram TH1D, etc). The second is the name followed by the third column which is a short description of the element. Sometimes the TTrees are repeated twice, this should not bother you. 
 \end{enumerate}
 \begin{figure}[h]
 \centering
@@ -126,12 +128,12 @@ This command will show you the list of all ROOT objects that you have in your fi
 \label{fig:.ls}
 \end{figure}
 \clearpage
-In order to get the content of each TTree, i.e. list of saved histograms
-or "branches", for example for Hits TTree, one should do:\\
+In order to get the content of a TTree, i.e. list of saved histograms
+or "branches", for example for Hits TTree, one can do:\\
 
 root[1] \verb| Hits->Show()| \\
 
-The results of this command is shown in Figure~\ref{fig:Show}
+This method is used to get one entry of a tree, i.e. if one does \verb|Hits->Show(10)|,  the output will be given for the 10th entry. Thus, if the argument is empty, as in the example above the output will is for the 0 entry (Figure~\ref{fig:Show}).
 
 \begin{figure}[h]
 \centering
@@ -140,6 +142,17 @@ The results of this command is shown in Figure~\ref{fig:Show}
 \label{fig:Show}
 \end{figure}
 
+
+\section{Checking statistics of a TTree}
+To check how many events there are in a TTree without plotting histograms, one can open ROOT file in a terminal window and do:
+
+root[1] \verb| Hits->GetEntries()|
+
+The output will be like: 
+
+\verb|(Long64_t) 235868|
+
+which means that in the example Hits tree there are 235868 saved events.
 
 
 \section{Smart plotting of your histograms (without TBrowser and python scripts)}
@@ -191,7 +204,7 @@ root[5] \verb| Hits->Draw("edep") | \\
 \end{figure}
 
 \subsubsection{Size}
-It is also possible to change size of lines with \verb|TTree ->SetLineWidth(size)|: \\
+It is also possible to change size of lines with \verb|TTree ->SetLineWidth(size)| (Figure~\ref{fig:1Dhist_color_linewidth}): \\
 
 root[4] \verb| Hits->SetLineWidth(3) |
 
@@ -201,7 +214,7 @@ root[5] \verb| Hits->Draw("edep") | \\
 \centering
 \includegraphics[scale=0.5]{figs/1Dhist_linewidth.pdf}
 \caption{Drawing of the 1D histogram with a LineWidth option}
-\label{fig:1Dhist_color}
+\label{fig:1Dhist_color_linewidth}
 \end{figure}
 
 \subsubsection{Style}
@@ -340,7 +353,7 @@ root[4] \verb| Singles->Draw("energy","","esame") |\\
 
 
 \subsection{Simple fitting}
-It is possible to do a simple fit of your distribution. For this after drawing your histogram you need to go to the canvas window and select \verb| Tools --> Fit Panel |. You will have new window with a Fit Panel as presented in Figure~\ref{fig:FitPanel}. There you can choose your fitting function, fitting method, fitting range etc. In the following example, the fit is done by Gaussian function in the range [0.13;0.21]~MeV. The parameters of the fit are printed in the terminal window where you started ROOT and look like following:
+It is possible to do a simple fit of your distribution. For this after drawing your histogram you need to go to the canvas window and select \verb| Tools --> Fit Panel |. You will have new window with a Fit Panel as presented in Figure~\ref{fig:FitPanel}. There you can choose your fitting function, fitting method, fitting range etc. In the following example, the fit is done by Gaussian function in the range [0.13;0.21]~MeV. The parameters of the fit are printed in the terminal window where you started ROOT and look like following:\\
 \verb| FCN=1259.74 FROM MIGRAD    STATUS=CONVERGED      75 CALLS      76 TOTAL|\\
 \verb|                EDM=1.82902e-12    STRATEGY= 1      ERROR MATRIX ACCURATE| \\
 \verb|   EXT PARAMETER                                   STEP         FIRST|   \\
@@ -389,9 +402,10 @@ The \verb|my_script.C| should contain something like this: \\
  \verb|  Singles->Draw("energy");|\\
  \verb|  Singles->Draw("energy","time<0.3","esame");|\\
  \verb|}|,\\
-where you open file at the beginning and after you can copy your plotting commands.
+where you open file at the beginning and after you can copy your plotting commands. 
+\textbf{NB: The plotting commands are done for the last opened file. If you want to plot two histograms from different files, you have to open each time the needed file before plotting.}
 
-\section{Example of a script making beautiful plots}
+\section{Example of a script to make nice plots}
 I hear all the time a lot of complains that the ROOT plots are not beautiful.  Thus, in this section I propose you a template to start for your plots. To run the script one should do:\\
  \verb|> root -l my_script.C |\\
 
@@ -486,7 +500,7 @@ The output result is shown in Figure~\ref{fig:energy}.
 \end{figure}
 
 
-\section{Adding a new variable to your TTree*}
+\section{Adding a new variable to a TTree*}
 In this section I will just add a link to the script that indicates how to add a new variable. It is a script that adds a shift on energy which is different for each of four detection heads. 
 
 One can find it here:   \href{https://github.com/kochebina/ROOT_manual_for_Gate_users/blob/master/Materials/AddShiftedEnergy.C}{AddShiftedEnergy.C}. 
